@@ -1,0 +1,65 @@
+<div class="row" style="margin-top: 50px; margin-bottom: 10px;">
+    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <button type="button" class="btn btn-success" routerLink="/collaborator/nuevo">New collaborator</button>
+    </div>
+</div>
+
+<div class="card" *ngIf="!cargandoAnimacion && collaborators.length > 0">
+    <div class="card-header">
+      Collaborators
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Last name</th>
+                <th scope="col">Document category</th>
+                <th scope="col">Identification document</th>
+                <th scope="col">Collaborator position</th>
+                <th scope="col">Speciality area</th>
+                <th scope="col">State</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let collaborator of collaborators; let posicion = index">
+                <td>{{collaborator.id}}</td>
+                <td>{{collaborator.collaboratorName}}</td>
+                <td>{{collaborator.collaboratorLastName}}</td>
+                <td>{{collaborator.collaboratorPosition}}</td>
+                <td>{{collaborator.specialityArea}}</td>
+                <td>{{collaborator.documentCategory}}</td>
+                <td>{{collaborator.identificationDocument}}</td>
+                <td *ngIf="collaborator.state === 1">Activo</td>
+                <td *ngIf="collaborator.state === 0">Bloqueado</td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                        <button *ngIf="collaborator.state === 0" type="button" class="btn btn-danger fas fa-lock"></button>
+                        <button *ngIf="collaborator.state === 1" type="button" class="btn btn-secondary fas fa-lock-open"></button>
+                        <button type="button" class="btn btn-primary fas fa-pen-square" [routerLink]="['/collaborator', collaborator.id ]"></button>
+                    </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+</div>
+
+<div *ngIf="!cargandoAnimacion && collaborators.length === 0" class="alert alert-warning text-center mt-3">
+  <h4 class="alert-heading">Collaborators not found...</h4>
+  <p>
+      <i class="fa fa-exclamation fa-2x"></i>
+  </p>
+</div> 
+
+<div *ngIf="cargandoAnimacion" class="alert alert-info text-center mt-3">
+  <h4 class="alert-heading">Loading...</h4>
+  <p>
+      <i class="fa fa-sync-alt fa-spin fa-2x"></i>
+  </p>
+  <p class="mb-0">
+      Please wait.
+  </p>
+</div>

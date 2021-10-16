@@ -1,0 +1,172 @@
+<div class="card" style="margin-top: 20px;">
+  <div class="card-header">
+      <div *ngIf="tituloValor" >New detail</div>
+      <div *ngIf="!tituloValor" >Update detail</div>
+    </div>
+
+  <form autocomplete="off" [formGroup]="forma" (ngSubmit)="guardar()">
+      <input type="number" formControlName="id" [hidden]="true">
+      <div class="card-body">
+
+          <div class="row align-items-start">
+              <div class="col">
+                  <div class="mb-3 position-relative">
+                      <label for="exampleInputEmail1" class="form-label">Temperature</label>
+                      <input  type="text" 
+                              class="form-control"
+                              formControlName="temperature"
+                              [class.is-invalid]="temperaturePositionNoValido"
+                      >
+                      <div *ngIf="temperaturePositionNoValido" class="form-text text-danger">Name invalid, minimum length 3 letters</div>
+                  </div>
+              </div>
+              <div class="col">
+                  <div class="mb-3 position-relative">
+
+                    <div class="mb-3 position-relative">
+                      <label for="exampleInputEmail1" class="form-label">Weight</label>
+                      <input 
+                          type="number"
+                          class="form-control"
+                          formControlName="weight"
+                          [class.is-invalid]="weightNoValido"
+                      >
+                      <div *ngIf="weightNoValido" class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+
+                  </div>
+              </div>
+          </div> 
+  
+          <div class="row align-items-start">
+              <div class="col">
+                  <div class="mb-3 position-relative">
+                    
+                    <div class="mb-3 position-relative">
+                      <label for="exampleInputEmail1" class="form-label">Cardiac frequency</label>
+                      <input 
+                          type="number"
+                          class="form-control"
+                          formControlName="cardiacFrequency"
+                          [class.is-invalid]="cardiacFrequencyNoValido"
+                      >
+                      <div *ngIf="cardiacFrequencyNoValido" class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+
+                  </div>
+              </div>
+              <div class="col">
+                <div class="mb-3 position-relative">
+                  <label for="exampleInputEmail1" class="form-label">Collaborator</label>
+                  <input  type="text" 
+                          class="form-control"
+                          formControlName="collaborator"
+                          [class.is-invalid]="collaboratorNoValido"
+                          
+                  >
+                  <div *ngIf="collaboratorNoValido" class="form-text text-danger">Name invalid, minimum length 3 letters</div>
+                </div>
+              </div>
+          </div>
+
+          <div class="row align-items-start">
+              <div class="col">
+                      
+                  <div class="mb-3 position-relative">
+                     
+                    <label for="exampleInputEmail1" class="form-label">Feeding</label>
+                      <input  type="text" 
+                              class="form-control"
+                              formControlName="feeding"
+                              [class.is-invalid]="feedingNoValido"
+                      >
+                      <div *ngIf="feedingNoValido" class="form-text text-danger">Name invalid, minimum length 3 letters</div>
+
+                  </div>
+
+              </div>
+              <div class="col">
+                  <div class="mb-3 position-relative">
+                    <label for="exampleInputEmail1" class="form-label">clinical history</label>
+                    <input  type="text" 
+                            class="form-control"
+                            formControlName="clinicalHistory"
+                            [class.is-invalid]="clinicalHistoryNoValido"
+                    >
+                    <div *ngIf="clinicalHistoryNoValido" class="form-text text-danger">Name invalid, minimum length 3 letters</div>
+                  </div>
+              </div>
+          </div>
+
+          <div class="row align-items-start">
+            <div class="col">
+                    
+                <div class="mb-3 position-relative">
+                   
+                  <label for="exampleInputEmail1" class="form-label">Habitat</label>
+                    <input  type="text" 
+                            class="form-control"
+                            formControlName="habitat"
+                            [class.is-invalid]="habitatNoValido"
+                    >
+                    <div *ngIf="habitatNoValido" class="form-text text-danger">Name invalid, minimum length 3 letters</div>
+
+                </div>
+
+            </div>
+            <div class="col">
+              <div class="mb-3 position-relative">
+                      
+                <label for="exampleInputEmail1" class="form-label">Breathing rate</label>
+                  <input 
+                      type="number"
+                      class="form-control"
+                      formControlName="breathingRate"
+                      [class.is-invalid]="breathingRateNoValido"
+                  >
+                  <div *ngIf="breathingRateNoValido" class="form-text">We'll never share your email with anyone else.</div> 
+
+              </div>
+            </div>
+          </div>
+          <div class="row align-items-start">
+            <div class="col">
+                    
+                <div class="mb-3 position-relative">                   
+                  <label for="exampleInputEmail1" class="form-label">Comments</label>                  
+                    <textarea  type="text" 
+                            class="form-control"
+                            rows="3"
+                            formControlName="comments"
+                            [class.is-invalid]="commentsNoValido"
+                    ></textarea>
+                    <div *ngIf="commentsNoValido" class="form-text text-danger">Name invalid, minimum length 3 letters</div>
+                </div>
+            </div>
+            
+            <div class="col">
+                    
+              <div class="mb-3 position-relative">                   
+                
+                <mat-form-field appearance="fill">
+                  <mat-label>Choose a date</mat-label>
+                  <input matInput [matDatepicker]="picker">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                
+
+              </div>
+          </div>
+          </div>
+          <br>
+          <div class="row">
+              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                  <button class="btn btn-success me-md-2" type="submit" >Submit</button>
+                  <button class="btn btn-danger" type="button" routerLink="/home">Cancel</button>
+              </div>
+          </div>
+      </div>
+
+  </form>    
+</div>

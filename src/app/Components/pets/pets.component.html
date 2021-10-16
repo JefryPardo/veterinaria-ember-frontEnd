@@ -1,0 +1,59 @@
+<div  class="row" style="margin-top: 50px;">
+  <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+      <button type="button" class="btn btn-success" [routerLink]="['/pet', identificationDocument ,'cc']">New pet</button>
+  </div>
+</div>
+
+<div *ngIf="!cargando && pets.length > 0" class="card" style="margin-top: 20px;">
+  <div class="card-header">
+    Users
+  </div>
+  <div class="card-body">
+      <table class="table" >
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Pet name</th>
+              <th scope="col">Gender</th>
+              <th scope="col">Breed</th>
+              <th scope="col">User</th>                
+              <th scope="col">Actions</th>  
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let pet of pets; let posicion = index">
+              <th scope="row">{{pet.id}}</th>
+              <td>{{pet.petName}}</td>
+              <td>{{pet.breed}}</td>              
+              <td *ngIf="pet.gender === '0'">Female</td>
+              <td *ngIf="pet.gender === '1'">Male</td>
+              <td>{{pet.member.identificationDocument}}</td>
+              <td>
+                  <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                      <button type="button" class="btn btn-primary fas fa-pen-square" [routerLink]="['/pet', pet.id]"></button>
+                      <button type="button" class="btn btn-warning fas fa-paw" [routerLink]="['/pet', pet.id ]"></button>
+                      <button type="button" class="btn btn-danger fas fa-trash" (click)="deletePet(pet, posicion)"></button>
+                  </div>
+              </td>
+            </tr>              
+          </tbody>
+        </table>
+  </div>
+</div>
+
+<div *ngIf="!cargando && pets.length === 0" class="alert alert-warning text-center mt-3">
+<h4 class="alert-heading">Users not found...</h4>
+<p>
+    <i class="fa fa-exclamation fa-2x"></i>
+</p>
+</div> 
+
+<div *ngIf="cargando" class="alert alert-info text-center mt-3">
+<h4 class="alert-heading">Loading...</h4>
+<p>
+    <i class="fa fa-sync-alt fa-spin fa-2x"></i>
+</p>
+<p class="mb-0">
+    Please wait.
+</p>
+</div>

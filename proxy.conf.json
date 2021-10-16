@@ -1,0 +1,8 @@
+{
+    "/vet/*": {
+        "target":"https://veterinaria-ember.herokuapp.com",
+        "secure":false,
+        "logLevel":"debug",
+        "changeOrigin":true
+    }
+}

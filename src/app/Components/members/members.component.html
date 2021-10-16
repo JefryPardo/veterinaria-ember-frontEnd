@@ -1,0 +1,64 @@
+<div  class="row" style="margin-top: 50px;">
+    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <button type="button" class="btn btn-success" routerLink="/member/nuevo">New user</button>
+    </div>
+</div>
+
+<div *ngIf="!cargando && members.length > 0" class="card" style="margin-top: 20px;">
+    <div class="card-header">
+      Users
+    </div>
+    <div class="card-body">
+        <table class="table" >
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Tipo documento</th>
+                <th scope="col"># Documento</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Genero</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let member of members; let posicion = index">
+                <th scope="row">{{member.id}}</th>
+                <td>{{member.memberName}}</td>
+                <td>{{member.memberLastName}}</td>
+                <td>{{member.documentCantegory}}</td>
+                <td>{{member.identificationDocument}}</td>
+                <td *ngIf="member.memberState === '0'">Blocked</td>
+                <td *ngIf="member.memberState === '1'">Active</td>
+                <td *ngIf="member.gender === 0">Female</td>
+                <td *ngIf="member.gender === 1">Male</td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                        <button type="button" class="btn btn-primary fas fa-pen-square" [routerLink]="['/member', member.id ]"></button>
+                        <button type="button" class="btn btn-warning fas fa-paw" [routerLink]="['/pets']"></button>
+                        <button type="button" class="btn btn-danger fas fa-trash" (click)="deleteMember(member, posicion)"></button>
+                    </div>
+                </td>
+              </tr>              
+            </tbody>
+          </table>
+    </div>
+</div>
+
+<div *ngIf="!cargando && members.length === 0" class="alert alert-warning text-center mt-3">
+  <h4 class="alert-heading">Users not found...</h4>
+  <p>
+      <i class="fa fa-exclamation fa-2x"></i>
+  </p>
+</div> 
+
+<div *ngIf="cargando" class="alert alert-info text-center mt-3">
+  <h4 class="alert-heading">Loading...</h4>
+  <p>
+      <i class="fa fa-sync-alt fa-spin fa-2x"></i>
+  </p>
+  <p class="mb-0">
+      Please wait.
+  </p>
+</div>

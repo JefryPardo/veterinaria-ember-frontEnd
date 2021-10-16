@@ -1,0 +1,122 @@
+<div class="card" style="margin-top: 20px;">
+    <div class="card-header">
+        <div *ngIf="tituloValor" >New user</div>
+        <div *ngIf="!tituloValor" >Update user</div>
+      </div>
+
+    <form autocomplete="off" [formGroup]="forma" (ngSubmit)="guardar()">
+        <input type="number" formControlName="id" [hidden]="true">
+        <input type="number" formControlName="state" [hidden]="true">
+        <div class="card-body">
+
+            <div class="row align-items-start">
+                <div class="col">
+                    <div class="mb-3 position-relative">
+                        <label for="exampleInputEmail1" class="form-label">Name</label>
+                        <input  type="text" 
+                                class="form-control" 
+                                placeholder="Please input your name"
+                                formControlName="collaboratorName"
+                                [class.is-invalid]="collaboratorNameNoValido"
+                        >
+                        <div *ngIf="collaboratorNameNoValido" class="form-text text-danger">Name invalid, minimum length 3 letters</div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="mb-3 position-relative">
+                        <label for="exampleInputEmail1" class="form-label">Speciality area </label>
+                        <select 
+                            class="form-select"
+                            formControlName="specialityArea"
+                            [class.is-invalid]="specialityAreaNoValido"
+                        >
+                            <option value="ANESTHESIA AND ANALGESIA">ANESTHESIA AND ANALGESIA</option>
+                            <option value="BEHAVIORAL MEDICINE">BEHAVIORAL MEDICINE</option>
+                            <option value="CLINICAL PHARMACOLOGY">CLINICAL PHARMACOLOGY</option>
+                            <option value="DENTISTRY">DENTISTRY</option>
+                            <option value="DERMATOLOGY">DERMATOLOGY</option>
+                            <option value="EMERGENCY AND CRITICAL CARE">EMERGENCY AND CRITICAL CARE</option>
+
+                        </select>
+                        <div *ngIf="specialityAreaNoValido" class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                </div>
+            </div> 
+    
+            <div class="row align-items-start">
+                <div class="col">
+                    <div class="mb-3 position-relative">
+                        <label for="exampleInputEmail1" class="form-label">Last name</label>
+                        <input 
+                            type="text" 
+                            class="form-control"
+                            formControlName="collaboratorLastName"
+                            [class.is-invalid]="collaboratorLastNameNoValido"
+                        >
+                        <div *ngIf="collaboratorLastNameNoValido" class="form-text" >We'll never share your email with anyone else.</div>
+                    </div>
+                </div>
+                <div class="col">
+                    
+                    <div class="mb-3 position-relative">
+                        <label for="exampleInputEmail1" class="form-label">Document category</label>
+                        <select 
+                            class="form-select" 
+                            formControlName="documentCategory"
+                            [class.is-invalid]="documentCategoryNoValido"
+                        >
+                            <option value="CC">CC</option>
+                            <option value="CE">CE</option>
+                            <option value="NIP">NIP</option>
+                            <option value="NIT">NIT</option>
+                            <option value="TI">TI</option>
+                            <option value="PAP">PAP</option>
+                        </select>
+                        <div *ngIf="documentCategoryNoValido" class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row align-items-start">
+                <div class="col">
+                        
+                    <div class="mb-3 position-relative">
+                        <label class="form-label">Collaborator position</label>
+                        <select 
+                            class="form-select"
+                            formControlName="collaboratorPosition"
+                            [class.is-invalid]="collaboratorPositionNoValido"
+                        >
+                            <option value="Medic">Medic</option>
+                            <option value="Surgeon">Surgeon</option>
+                            <option value="Assistant">Assistant</option>
+                        </select>
+                        <div *ngIf="collaboratorPositionNoValido" class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+
+                </div>
+                <div class="col">
+                    <div class="mb-3 position-relative">
+                        <label for="exampleInputEmail1" class="form-label">Identification document </label>
+                        <input 
+                            type="number"
+                            class="form-control"
+                            formControlName="identificationDocument"
+                            [class.is-invalid]="identificationDocumentNoValido"
+                        >
+                        <div *ngIf="identificationDocumentNoValido" class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button class="btn btn-success me-md-2" type="submit" >Submit</button>
+                    <button class="btn btn-danger" type="button" routerLink="/collaborators">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+    </form>    
+</div>

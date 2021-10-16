@@ -1,0 +1,52 @@
+<div class="row" style="margin-top: 50px; margin-bottom: 10px;">
+  <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+      <button type="button" class="btn btn-success">New Clinical History</button>
+      <button type="button" class="btn btn-primary">New User</button>
+  </div>
+</div>
+<table class="table" style="margin-top: 20px;">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Date</th>
+      <th scope="col">Pet name</th>
+      <th scope="col">User: identificaction</th>
+      <th scope="col">User: name</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let detail of details; let posicion = index">
+      <th scope="row">{{detail.id}}</th>
+      <td>{{detail.dateTime}}</td>
+      <td>{{detail.clinicalHistory.pet.petName}}</td>
+      <td>{{detail.clinicalHistory.pet.member.identificationDocument}}</td>
+      <td>{{detail.clinicalHistory.pet.member.memberName}}</td>
+      <td>
+        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+          <button  type="button" class="btn btn-warning far fa-eye"></button>
+          <button  type="button" class="btn btn-primary far fa-edit"[routerLink]="['/detail', detail.id ]"></button>
+          <button type="button" class="btn btn-danger fas fa-trash" [routerLink]="['../detail']"></button>
+        </div>
+    </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<div *ngIf="!cargandoAnimacion && details.length === 0" class="alert alert-warning text-center mt-3">
+  <h4 class="alert-heading">Collaborators not found...</h4>
+  <p>
+      <i class="fa fa-exclamation fa-2x"></i>
+  </p>
+</div> 
+
+<div *ngIf="cargandoAnimacion" class="alert alert-info text-center mt-3">
+  <h4 class="alert-heading">Loading...</h4>
+  <p>
+      <i class="fa fa-sync-alt fa-spin fa-2x"></i>
+  </p>
+  <p class="mb-0">
+      Please wait.
+  </p>
+</div>
