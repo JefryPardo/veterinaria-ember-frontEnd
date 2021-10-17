@@ -58,12 +58,16 @@
               <div class="col">
                 <div class="mb-3 position-relative">
                   <label for="exampleInputEmail1" class="form-label">Collaborator</label>
-                  <input  type="text" 
-                          class="form-control"
-                          formControlName="collaborator"
-                          [class.is-invalid]="collaboratorNoValido"
-                          
-                  >
+                  <select 
+                            class="form-select"
+                            formControlName="collaborator"
+                            [class.is-invalid]="collaboratorNoValido"
+                        >
+                            <option value="10">Jorge Correa</option>
+                            <option value="12">Martha Gomez</option>
+                            <option value="13">Johan	Alzate</option>
+
+                  </select>
                   <div *ngIf="collaboratorNoValido" class="form-text text-danger">Name invalid, minimum length 3 letters</div>
                 </div>
               </div>
@@ -88,10 +92,11 @@
               <div class="col">
                   <div class="mb-3 position-relative">
                     <label for="exampleInputEmail1" class="form-label">clinical history</label>
-                    <input  type="text" 
+                    <input  type="number" 
                             class="form-control"
                             formControlName="clinicalHistory"
                             [class.is-invalid]="clinicalHistoryNoValido"
+                            [attr.disabled]="true"
                     >
                     <div *ngIf="clinicalHistoryNoValido" class="form-text text-danger">Name invalid, minimum length 3 letters</div>
                   </div>
@@ -146,16 +151,15 @@
             
             <div class="col">
                     
-              <div class="mb-3 position-relative">                   
-                
-                <mat-form-field appearance="fill">
-                  <mat-label>Choose a date</mat-label>
-                  <input matInput [matDatepicker]="picker">
-                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-                
-
+              <div class="mb-3 position-relative">  
+                <label for="exampleInputEmail1" class="form-label">Date</label>
+                <input 
+                      class="form-control"
+                      type="datetime-local" id="start"
+                      formControlName="dateTime"
+                      [class.is-invalid]="dateTimeNoValido"
+                >
+                <div *ngIf="dateTimeNoValido" class="form-text text-danger">Name invalid, minimum length 3 letters</div>
               </div>
           </div>
           </div>

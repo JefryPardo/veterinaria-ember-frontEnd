@@ -11,7 +11,7 @@ import { CollaboratorsComponent } from './Components/collaborators/collaborators
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
-  {path: 'pets', component: PetsComponent},
+  {path: 'pets/:id', component: PetsComponent},
   {path: 'pet/:cc/cc', component: PetComponent},
   {path: 'pet/:id', component: PetComponent},
   {path: 'member/:id', component: MemberComponent},

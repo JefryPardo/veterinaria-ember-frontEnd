@@ -14,9 +14,7 @@ import { MembersComponent } from './Components/members/members.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CollaboratorsComponent } from './Components/collaborators/collaborators.component';
 import { PetsComponent } from './Components/pets/pets.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import {CalendarModule} from 'primeng/calendar';
 
 @NgModule({
   declarations: [
@@ -36,9 +34,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    BrowserAnimationsModule,
-    MatDatepickerModule,
-    MatNativeDateModule 
+    CalendarModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

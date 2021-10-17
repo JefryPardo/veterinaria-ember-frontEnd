@@ -11,24 +11,29 @@ export class ClinicalHistoryServiceService {
 
   constructor( private http: HttpClient) { }
 
-  saveCollaborator( clinicalHistory: ClinicalHistoryModel) {
+  saveClinicalHistory( clinicalHistory: ClinicalHistoryModel) {
       
-    return this.http.post<ClinicalHistoryModel>("/vet/collaborator",clinicalHistory);
+    return this.http.post<ClinicalHistoryModel>("/vet/CliHis",clinicalHistory);
   }
 
-  searchAllCollaborator() {
+  searchAllClinicalHistory() {
   
     delay(1500);
-    return this.http.get<ClinicalHistoryModel[]>("/vet/collaborator");
+    return this.http.get<ClinicalHistoryModel[]>("/vet/CliHis");
   }
 
-  getCollaboratorById( clinicalHistory_id: string ) {
+  getClinicalHistoriById( clinicalHistory_id: string ) {
 
-    return this.http.get<ClinicalHistoryModel>(`/vet/collaborator/${clinicalHistory_id}`);
+    return this.http.get<ClinicalHistoryModel>(`/vet/CliHis/${clinicalHistory_id}`);
   }
 
-  deleteCollaboratorById( clinicalHistory_id: number ) {
+  getClinicalHistoryByPetId( pet_id: string ) {
 
-    return this.http.delete<ResponseModel>(`/vet/collaborator/${clinicalHistory_id}`);
+    return this.http.get<ClinicalHistoryModel>(`/vet/CliHis/my/${pet_id}`);
+  }
+
+  deleteClinicalHistoryById( clinicalHistory_id: number ) {
+
+    return this.http.delete<ResponseModel>(`/vet/CliHis/${clinicalHistory_id}`);
   }
 }

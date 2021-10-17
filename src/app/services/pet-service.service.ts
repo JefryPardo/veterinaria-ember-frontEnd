@@ -22,6 +22,12 @@ export class PetServiceService {
     return this.http.get<PetModel[]>("/vet/pet");
   }
 
+  searchAllPetMember( id: string ) {
+  
+    delay(1500);
+    return this.http.get<PetModel[]>(`/vet/pet/my/${id}`);
+  }
+
   getPetById( id: string ) {
 
     return this.http.get<PetModel>(`/vet/pet/${id}`);

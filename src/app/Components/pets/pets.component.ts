@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PetModel } from '../../models/pet.model';
 import { PetServiceService } from '../../services/pet-service.service';
 
@@ -12,21 +12,23 @@ export class PetsComponent implements OnInit {
   
   pets: PetModel[] = [];
   cargando = false;
-  identificationDocument: number = 0;
+  identificationDocument: string = '';
 
-  constructor( private service: PetServiceService, private router: Router ) { }
+  constructor( private service: PetServiceService, private router: Router, private rout: ActivatedRoute ) { }
 
   ngOnInit() {
-
     this.cargando = true;
-    this.service.searchAllPet().subscribe( (data:PetModel[]) => {      
-        
-      if(data !== []) {
+    const id = this.rout.snapshot.paramMap.get('id');
+    console.log(id)
+     
+    if(id !== '' && id !== null){      
+      this.service.searchAllPetMember( id ).subscribe( ( resp:PetModel[] ) => {
         this.cargando = false;
-        this.pets = data;
-        this.identificationDocument = data[0].member.id;
-      }
-    });
+        this.identificationDocument = id;
+        this.pets = resp;
+      });
+    }
+    
   }
 
 

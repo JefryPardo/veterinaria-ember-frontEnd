@@ -32,6 +32,7 @@
                   <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                       <button type="button" class="btn btn-primary fas fa-pen-square" [routerLink]="['/pet', pet.id]"></button>
                       <button type="button" class="btn btn-warning fas fa-paw" [routerLink]="['/pet', pet.id ]"></button>
+                      <button type="button" class="btn btn-success fas fa-folder-plus" [routerLink]="['/detail', pet.id ]"></button>
                       <button type="button" class="btn btn-danger fas fa-trash" (click)="deletePet(pet, posicion)"></button>
                   </div>
               </td>
@@ -42,7 +43,7 @@
 </div>
 
 <div *ngIf="!cargando && pets.length === 0" class="alert alert-warning text-center mt-3">
-<h4 class="alert-heading">Users not found...</h4>
+<h4 class="alert-heading">Pets not found...</h4>
 <p>
     <i class="fa fa-exclamation fa-2x"></i>
 </p>

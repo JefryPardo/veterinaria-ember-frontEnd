@@ -27,6 +27,11 @@ export class DetailClinicalHistoryServiceService {
     return this.http.get<DetailClinicalHistoryModel>(`/vet/detail/${detailClinicalHistory_id}`);
   }
 
+  getDetailByClinicalHistoryId( ClinicalHistory_id: any ) {
+
+    return this.http.get<DetailClinicalHistoryModel[]>(`/vet/detail/my/${ClinicalHistory_id}`);
+  }
+
   deleteDetailById( detailClinicalHistory_id: number ) {
 
     return this.http.delete<ResponseModel>(`/vet/detail/${detailClinicalHistory_id}`);

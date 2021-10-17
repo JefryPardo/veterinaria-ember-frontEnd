@@ -3,6 +3,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DetailClinicalHistoryServiceService } from '../../services/detail-clinical-history-service.service';
 import { DetailClinicalHistoryModel } from '../../models/detailClinicalHistory.model';
+import * as moment from 'moment';
+import Swal from 'sweetalert2';
+import { Observable } from 'rxjs';
+import { ClinicalHistoryServiceService } from '../../services/clinical-history-service.service';
+import { ClinicalHistoryModel } from '../../models/clinicalHistory.model';
+import { PetModel } from '../../models/pet.model';
+
 
 @Component({
   selector: 'app-details',
@@ -16,6 +23,7 @@ export class DetailsComponent implements OnInit {
 
   constructor(private router: Router, private fb: FormBuilder, 
     private serviceDetail: DetailClinicalHistoryServiceService,
+    private serviceClinicalHistori: ClinicalHistoryServiceService,
     private rout: ActivatedRoute) {
     
       this.crearFormulario();
@@ -23,15 +31,39 @@ export class DetailsComponent implements OnInit {
 
   ngOnInit() {
 
-    const id = this.rout.snapshot.paramMap.get('id');
-     
-    if(id !== '' && id !== null){
+    const entrada = this.rout.snapshot.paramMap.get('id');
+    console.log(entrada)
+    if(entrada !== '' && entrada !== null){
+      
       this.tituloValor = false;
-      this.serviceDetail.getDetailById(id).subscribe( ( resp:DetailClinicalHistoryModel ) => {
-        console.log(resp)
-         this.cargarDataFormulario(resp);
+      this.serviceClinicalHistori.getClinicalHistoryByPetId( entrada ).subscribe( (resp:ClinicalHistoryModel) => {
+        
+        if(resp != null) {
+          console.log(resp.id)
+          this.forma.setValue({
+            id:                     null,
+            temperature:            null,
+            weight:                 null,
+            breathingRate:          null,
+            cardiacFrequency:       null,
+            dateTime:               null,
+            feeding:                null,
+            habitat:                null,
+            comments:               null,
+            collaborator:           null,
+            clinicalHistory:        resp.id
+          });
+        }else {
+
+          console.log('vacio')
+        }
       });
     }
+  }
+
+  petView(cli: ClinicalHistoryModel) {
+
+    console.log(cli.id)
   }
 
   crearFormulario() {
@@ -61,13 +93,14 @@ export class DetailsComponent implements OnInit {
       weight:                 detail.weight,
       breathingRate:          detail.breathingRate,
       cardiacFrequency:       detail.cardiacFrequency,
-      dateTime:               detail.dateTime,
+      dateTime:               moment(detail.dateTime).format('yyyy-MM-DDThh:mm'),
       feeding:                detail.feeding,
       habitat:                detail.habitat,
       comments:               detail.comments,
-      collaborator:           detail.collaborator,
-      clinicalHistory:        detail.clinicalHistory
+      collaborator:           detail.collaborator.id,
+      clinicalHistory:        detail.clinicalHistory.id
     });
+    console.log(moment(detail.dateTime).format('yyyy-MM-DDThh:mm'))
   }
 
   get temperaturePositionNoValido() {
@@ -111,11 +144,68 @@ export class DetailsComponent implements OnInit {
     return this.forma.get('clinicalHistory')?.invalid && this.forma.get('clinicalHistory')?.touched;
   }
 
-
   guardar() {
+       
+    if( this.forma.invalid ) {
 
+      Object.values( this.forma.controls ).forEach( control => {
+        
+        control.markAllAsTouched();
+      });
+    }else { 
+      
+      if ( this.forma.get('id')?.value === "" ) {
+        this.forma.patchValue({
+            id: null
+        });
+      }
+      
+      let detail: any = {
+
+        "id":                     this.forma.get('id')?.value,
+        "temperature":            this.forma.get('temperature')?.value,
+        "weight":                 this.forma.get('weight')?.value,
+        "cardiacFrequency":       this.forma.get('cardiacFrequency')?.value,
+        "breathingRate":          this.forma.get('breathingRate')?.value,
+        "dateTime":               this.forma.get('dateTime')?.value,
+        "feeding":                this.forma.get('feeding')?.value,
+        "habitat":                this.forma.get('habitat')?.value,
+        "comments":               this.forma.get('comments')?.value,
+        "collaborator":           {
+          "id": this.forma.get('collaborator')?.value
+        },
+        "clinicalHistory":        {
+          "id": this.forma.get('clinicalHistory')?.value
+        }
+      };
+      this.saveDetailPost(detail);
+    }
   }
 
+  saveDetailPost(detail: DetailClinicalHistoryModel) {
+
+    Swal.fire({
+
+      title: 'Please wait',
+      text: 'Saving',
+      template: 'info',
+      allowOutsideClick: false
+    });
+
+    Swal.showLoading();
+    let peticion : Observable<any>;
+
+    peticion = this.serviceDetail.saveDetail( detail );
+
+    peticion.subscribe( resp => {
+      Swal.fire({
+        title: 'Exitos',
+        text: 'Se guardo',
+        template: 'success'
+      })
+      this.router.navigate(["home"]);
+    });
+  }
 
 
 }
